@@ -1,25 +1,57 @@
-import axios from "axios"
+import axios from "axios";
 
-const BACKEND_DOMAIN = "http://127.0.0.1:8000"
+const BACKEND_DOMAIN = "http://127.0.0.1:8000";
 
-const REGISTER_URL = `${BACKEND_DOMAIN}/api/v1/auth/users/`
-const LOGIN_URL = `${BACKEND_DOMAIN}/api/v1/auth/jwt/create/`
-const ACTIVATE_URL = `${BACKEND_DOMAIN}/api/v1/auth/users/activation/`
-const RESET_PASSWORD_URL = `${BACKEND_DOMAIN}/api/v1/auth/reset_password/`
-const RESET_PASSWORD_CONFIRM_URL = `${BACKEND_DOMAIN}/api/v1/auth/users/reset_password_confirm/`
+const REGISTER_URL = `${BACKEND_DOMAIN}/api/v1/auth/users/`;
+const LOGIN_URL = `${BACKEND_DOMAIN}/api/v1/auth/jwt/create/`;
+const ACTIVATE_URL = `${BACKEND_DOMAIN}/api/v1/auth/users/activation/`;
+const RESET_PASSWORD_URL = `${BACKEND_DOMAIN}/api/v1/auth/reset_password/`;
+const RESET_PASSWORD_CONFIRM_URL = `${BACKEND_DOMAIN}/api/v1/auth/users/reset_password_confirm/`;
 
-const register = async (userData) => {
+async function register(userData) {
     const config = {
         headers: {
-            "Content-Type": "application/json"
-        }
-    }
+            "Content-Type": "application/json",
+        },
+    };
 
-    const response = await axios.post(REGISTER_URL, userData, config)
+    const response = await axios.post(REGISTER_URL, userData, config);
 
-    return response.data
+    return response.data;
 }
 
-const authService = {register}
+async function login(userData) {
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
 
-export default authService
+    const response = await axios.post(LOGIN_URL, userData, config);
+
+    if (response.data) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+    }
+
+    return response.data;
+}
+
+function logout() {
+    return localStorage.removeItem("user");
+}
+
+async function activate(userData) {
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+
+    const response = await axios.post(ACTIVATE_URL, userData, config);
+
+    return response.data;
+}
+
+const authService = { register, login, logout, activate };
+
+export default authService;
