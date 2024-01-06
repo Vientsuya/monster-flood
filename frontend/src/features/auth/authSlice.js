@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authService from "./authService.js";
 
 const user = JSON.parse(localStorage.getItem("user"));
@@ -11,18 +11,21 @@ const initialState = {
     message: "",
 };
 
+function getMessageFromError(error) {
+    return (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+        error.message ||
+        error.toString();
+}
+
 export const register = createAsyncThunk(
     "auth/register",
     async (userData, thunkAPI) => {
         try {
             return await authService.register(userData);
         } catch (error) {
-            const message =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                error.message ||
-                error.toString();
+            const message = getMessageFromError(error);
 
             return thunkAPI.rejectWithValue(message);
         }
@@ -35,12 +38,7 @@ export const login = createAsyncThunk(
         try {
             return await authService.login(userData);
         } catch (error) {
-            const message =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                error.message ||
-                error.toString();
+            const message = getMessageFromError(error);
 
             return thunkAPI.rejectWithValue(message);
         }
@@ -57,12 +55,33 @@ export const activate = createAsyncThunk(
         try {
             return await authService.activate(userData);
         } catch (error) {
-            const message =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                error.message ||
-                error.toString();
+            const message = getMessageFromError(error);
+
+            return thunkAPI.rejectWithValue(message);
+        }
+    },
+);
+
+export const resetPassword = createAsyncThunk(
+    "auth/resetPassword",
+    async (userData, thunkAPI) => {
+        try {
+            return await authService.resetPassword(userData);
+        } catch (error) {
+            const message = getMessageFromError(error);
+
+            return thunkAPI.rejectWithValue(message);
+        }
+    },
+);
+
+export const resetPasswordConfirm = createAsyncThunk(
+    "auth/resetPasswordConfirm",
+    async (userData, thunkAPI) => {
+        try {
+            return await authService.resetPasswordConfirm(userData);
+        } catch (error) {
+            const message = getMessageFromError(error);
 
             return thunkAPI.rejectWithValue(message);
         }

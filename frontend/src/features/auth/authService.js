@@ -52,6 +52,30 @@ async function activate(userData) {
     return response.data;
 }
 
-const authService = { register, login, logout, activate };
+async function resetPassword(userData) {
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+
+    const response = await axios.post(RESET_PASSWORD_URL, userData, config);
+
+    return response.data;
+}
+
+async function resetPasswordConfirm(userData) {
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+
+    const response = await axios.post(RESET_PASSWORD_CONFIRM_URL, userData, config);
+
+    return response.data;
+}
+
+const authService = { register, login, logout, activate, resetPassword, resetPasswordConfirm };
 
 export default authService;
