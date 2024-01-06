@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {Provider} from "react-redux";
-import {store} from "./app/store";
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 
 import Homepage from "./pages/Homepage.jsx";
@@ -16,45 +16,48 @@ import Navbar from "./components/Navbar.jsx";
 
 const router = createBrowserRouter([
     {
-        element: <Navbar/>,
+        element: <Navbar />,
         children: [
             {
                 path: "/",
-                element: <Homepage/>,
+                element: <Homepage />,
             },
             {
                 path: "/login",
-                element: <LoginPage/>,
+                element: <LoginPage />,
             },
             {
                 path: "/register",
-                element: <RegisterPage/>,
+                element: <RegisterPage />,
             },
             {
                 path: "/dashboard",
-                element: <Dashboard/>,
+                element: <Dashboard />,
             },
             {
                 path: "/reset-password",
-                element: <ResetPasswordPage/>,
+                element: <ResetPasswordPage />,
             },
             {
                 path: "activate-account",
-                element: <ActivatePage/>,
+                element: <ActivatePage />,
             },
             {
                 path: "*",
-                element: <NotFoundPage/>,
+                element: <NotFoundPage />,
             },
-        ]
+            {
+                path: "/activate/:uid/:token",
+                element: <ActivatePage />,
+            },
+        ],
     },
-
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
         <Provider store={store}>
-            <RouterProvider router={router}/>
+            <RouterProvider router={router} />
         </Provider>
-    </React.StrictMode>
+    </React.StrictMode>,
 );

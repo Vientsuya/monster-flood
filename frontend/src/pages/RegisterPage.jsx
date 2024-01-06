@@ -1,8 +1,8 @@
-import {useEffect, useState} from "react";
-import {handleObjectPropertyChange} from "../utils.js";
-import {useDispatch, useSelector} from "react-redux";
-import {register, reset} from "../features/auth/authSlice.js";
-import {useNavigate} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { handleObjectPropertyChange } from "../utils.js";
+import { useDispatch, useSelector } from "react-redux";
+import { register, reset } from "../features/auth/authSlice.js";
+import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner.jsx";
 
 export default function RegisterPage() {
@@ -14,13 +14,13 @@ export default function RegisterPage() {
         re_password: "",
     });
 
-    const {first_name, last_name, email, password, re_password} = formData;
+    const { first_name, last_name, email, password, re_password } = formData;
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const {user, isLoading, isError, isSuccess, message} = useSelector(
-        (state) => state.auth
+    const { user, isLoading, isError, isSuccess, message } = useSelector(
+        (state) => state.auth,
     );
 
     function handleRegisterInputChange(e) {
@@ -61,7 +61,7 @@ export default function RegisterPage() {
     }, [isSuccess, isError, message, user]);
 
     return (
-        <div className="w-screen h-screen flex justify-center items-center bg-blue-500">
+        <div className="w-screen h-[93vh] flex justify-center items-center bg-blue-500">
             <div className="bg-white p-6 rounded-2xl">
                 <h2 className="text-2xl font-bold text-blue-500 text-center mb-3">
                     Register
@@ -134,7 +134,7 @@ export default function RegisterPage() {
 
                     <div className="text-center">
                         {isLoading ? (
-                            <Spinner/>
+                            <Spinner />
                         ) : (
                             <button
                                 type="submit"

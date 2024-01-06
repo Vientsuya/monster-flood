@@ -17,7 +17,7 @@ export default function LoginPage() {
     const navigate = useNavigate();
 
     const { user, isLoading, isError, isSuccess, message } = useSelector(
-        (state) => state.auth
+        (state) => state.auth,
     );
 
     function handleLoginInputChange(e) {
@@ -46,7 +46,7 @@ export default function LoginPage() {
     }, [isError, isSuccess, message, user]);
 
     return (
-        <div className="w-screen h-screen flex justify-center items-center bg-blue-500">
+        <div className="w-screen h-[93vh] flex justify-center items-center bg-blue-500">
             <div className="bg-white p-6 rounded-2xl">
                 <h2 className="text-2xl font-bold text-blue-500 text-center mb-3">
                     Login

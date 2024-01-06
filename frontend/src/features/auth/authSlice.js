@@ -26,7 +26,7 @@ export const register = createAsyncThunk(
 
             return thunkAPI.rejectWithValue(message);
         }
-    }
+    },
 );
 
 export const login = createAsyncThunk(
@@ -44,7 +44,7 @@ export const login = createAsyncThunk(
 
             return thunkAPI.rejectWithValue(message);
         }
-    }
+    },
 );
 
 export const logout = createAsyncThunk("auth/logout", async () => {
@@ -66,7 +66,7 @@ export const activate = createAsyncThunk(
 
             return thunkAPI.rejectWithValue(message);
         }
-    }
+    },
 );
 
 export const authSlice = createSlice({
@@ -88,7 +88,6 @@ export const authSlice = createSlice({
             .addCase(register.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
-                state.user = action.payload;
             })
             .addCase(register.rejected, (state, action) => {
                 state.isLoading = false;
@@ -121,7 +120,6 @@ export const authSlice = createSlice({
             .addCase(activate.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
-                state.user = action.payload;
             })
             .addCase(activate.rejected, (state, action) => {
                 state.isLoading = false;

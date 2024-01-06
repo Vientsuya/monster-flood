@@ -1,13 +1,12 @@
-import {Outlet, useNavigate} from "react-router-dom";
-import {logout, reset} from "../features/auth/authSlice.js";
-import {useDispatch, useSelector} from "react-redux";
+import { Outlet, useNavigate } from "react-router-dom";
+import { logout, reset } from "../features/auth/authSlice.js";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Navbar() {
-
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const {user} = useSelector((state) => state.auth);
+    const { user } = useSelector((state) => state.auth);
 
     function handleLogout() {
         dispatch(logout());
@@ -17,7 +16,7 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="bg-white border-gray-200 dark:bg-gray-900">
+            <nav className="bg-white border-gray-200 dark:bg-gray-900 h-[7vh]">
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                     <a
                         href="/"
@@ -29,8 +28,8 @@ export default function Navbar() {
                             alt="Flowbite Logo"
                         />
                         <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                        Flowbite
-                    </span>
+                            Monster Flood
+                        </span>
                     </a>
                     <button
                         data-collapse-toggle="navbar-default"
@@ -88,14 +87,21 @@ export default function Navbar() {
                                     Login
                                 </a>
                             </li>
-                            <li>
-                                <button onClick={handleLogout} className="text-white font-bold">Logout</button>
-                            </li>
+                            {user &&
+                                <li>
+                                    <button
+                                        onClick={handleLogout}
+                                        className="text-white font-bold"
+                                    >
+                                        Logout
+                                    </button>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>
             </nav>
-            <Outlet/>
+            <Outlet />
         </>
     );
 }

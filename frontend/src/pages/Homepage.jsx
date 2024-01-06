@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Homepage() {
     return (
-        <div className="w-screen h-screen">
+        <div className="w-screen h-[93vh]">
             <div className="text-center">Monster Flood</div>
             <div className="text-center">
                 <button className="text-blue-500 font-bold mr-4">
