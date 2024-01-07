@@ -7,6 +7,7 @@ const LOGIN_URL = `${BACKEND_DOMAIN}/api/v1/auth/jwt/create/`;
 const ACTIVATE_URL = `${BACKEND_DOMAIN}/api/v1/auth/users/activation/`;
 const RESET_PASSWORD_URL = `${BACKEND_DOMAIN}/api/v1/auth/users/reset_password/`;
 const RESET_PASSWORD_CONFIRM_URL = `${BACKEND_DOMAIN}/api/v1/auth/users/reset_password_confirm/`;
+const GET_USER_INFO_URL = `${BACKEND_DOMAIN}/api/v1/auth/users/me/`;
 
 async function register(userData) {
     const config = {
@@ -76,6 +77,17 @@ async function resetPasswordConfirm(userData) {
     return response.data;
 }
 
-const authService = { register, login, logout, activate, resetPassword, resetPasswordConfirm };
+async function getUserInfo(accessToken) {
+    const response = await axios.get(GET_USER_INFO_URL, {
+        headers: {
+            "Authorization": `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+        },
+    });
+
+    return response.data;
+}
+
+const authService = { register, login, logout, activate, resetPassword, resetPasswordConfirm, getUserInfo };
 
 export default authService;

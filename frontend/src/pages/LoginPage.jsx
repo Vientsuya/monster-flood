@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { login, reset } from "../features/auth/authSlice.js";
+import { login, reset, getUserInfo } from "../features/auth/authSlice.js";
 
 export default function LoginPage() {
     const [formData, setFormData] = useState({
@@ -40,9 +40,10 @@ export default function LoginPage() {
         }
 
         if (isSuccess || user) {
-            dispatch(reset());
             navigate("/dashboard");
         }
+        dispatch(reset());
+        dispatch(getUserInfo());
     }, [isError, isSuccess, message, user]);
 
     return (
